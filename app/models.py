@@ -18,7 +18,6 @@ class Client(Model):
         verbose_name='Дата заказа',
         default=now,
         blank=True,
-        null=True
     )
 
     def __str__(self):
