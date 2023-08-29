@@ -10,7 +10,10 @@ class ClientSerializer(ModelSerializer):
 
     class Meta:
         model = Client
-        fields = '__all__'
+        fields = (
+            'fullname',
+            'phone_number',
+        )
 
 class BlogSerializer(ModelSerializer):
 
