@@ -54,12 +54,12 @@ def blog_list(request):
 def sponsor_list(request):
     if request.method == 'GET':
         sponsors = Sponsor.objects.all()
-        serializer = SponsorSerializer(sponsors, many=True)
+        serializer = SponsorSerializer(sponsors, many=True, context={'request': request})
         return Response(serializer.data)
 
 @api_view(['GET'])
 def product_list(request):
     if request.method == 'GET':
         products = Product.objects.all()
-        serializer = ProductSerializer(products, many=True)
+        serializer = ProductSerializer(products, many=True, context={'request': request})
         return Response(serializer.data)
