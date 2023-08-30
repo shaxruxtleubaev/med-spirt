@@ -52,8 +52,8 @@ CSRF_TRUSTED_ORIGINS = [
 CORS_ORIGIN_ALLOW_ALL = True
 
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(days=7),
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=14),
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=36500),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=73000),
 }
 
 MIDDLEWARE = [
