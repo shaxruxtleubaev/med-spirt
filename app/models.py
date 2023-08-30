@@ -16,10 +16,8 @@ class Client(Model):
 
     date = DateField(
         verbose_name='Дата заказа',
-        default=now,
-        blank=True,
     )
-
+    
     def __str__(self):
         return f'{self.fullname}'
 

@@ -25,11 +25,14 @@ def client_list(request):
         if serializer.is_valid():
             serializer.save()
 
-            # Telegram message
-            loop = asyncio.new_event_loop()
-            asyncio.set_event_loop(loop)
-            loop.run_until_complete(send_data_to_telegram(serializer.validated_data))
-            loop.close()
+            # # Telegram message
+            # loop = asyncio.new_event_loop()
+            # asyncio.set_event_loop(loop)
+            # loop.run_until_complete(send_data_to_telegram(serializer.validated_data))
+            # loop.close()
+
+            # Call the asynchronous Telegram messaging function directly
+            asyncio.run(send_data_to_telegram(serializer.validated_data))
 
             return Response(
                 serializer.data,
