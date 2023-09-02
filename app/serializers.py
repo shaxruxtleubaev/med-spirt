@@ -14,9 +14,18 @@ class ClientSerializer(ModelSerializer):
 
 class BlogSerializer(ModelSerializer):
 
+    image_url = SerializerMethodField()
+
     class Meta:
         model = Blog
         fields = '__all__'
+
+    def get_image_url(self, obj):
+        request = self.context.get('request')
+        if obj.image:
+            image_url = obj.image.url
+            return request.build_absolute_uri(image_url)
+        return None
 
 class SponsorSerializer(ModelSerializer):
 
