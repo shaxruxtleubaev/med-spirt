@@ -47,7 +47,7 @@ def client_list(request):
 def blog_list(request):
     if request.method == 'GET':
         blogs = Blog.objects.all()
-        serializer = BlogSerializer(blogs, many=True)
+        serializer = BlogSerializer(blogs, many=True, context={'request': request})
         return Response(serializer.data)
 
 @api_view(['GET'])
