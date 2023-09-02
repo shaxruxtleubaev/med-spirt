@@ -10,8 +10,8 @@ from modeltranslation.admin import TranslationAdmin
 @register(Client)
 class ClientAdmin(ModelAdmin):
 
-    list_display = ('id', 'fullname', 'date')
-    list_display_links = ('id', 'fullname', 'date')
+    list_display = ('id', 'fullname')
+    list_display_links = ('id', 'fullname')
     ordering = ('fullname',)
 
 @register(Blog)

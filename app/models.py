@@ -13,11 +13,7 @@ class Client(Model):
         'Номер телефона',
         max_length=256
     )
-
-    date = DateField(
-        verbose_name='Дата заказа',
-    )
-    
+   
     def __str__(self):
         return f'{self.fullname}'
 
