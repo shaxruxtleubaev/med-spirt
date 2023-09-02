@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
@@ -14,9 +13,11 @@ from .serializers import (
     SponsorSerializer,
     ProductSerializer
 )
-
-from .telegram_bot import send_data_to_telegram
-import asyncio
+import requests
+from src.settings.base import (
+    TELEGRAM_CHAT_ID,
+    TELEGRAM_BOT_TOKEN
+)
 
 @api_view(['POST'])
 def client_list(request):
@@ -25,19 +26,33 @@ def client_list(request):
         if serializer.is_valid():
             serializer.save()
 
-            # # Telegram message
-            # loop = asyncio.new_event_loop()
-            # asyncio.set_event_loop(loop)
-            # loop.run_until_complete(send_data_to_telegram(serializer.validated_data))
-            # loop.close()
+            # Telegram info
+            chat_id = TELEGRAM_CHAT_ID  
+            message_text = f'Новый клиент: \
+                \n\nКлиент: {serializer.instance.fullname} \
+                \nТелефон номер: {serializer.instance.phone_number} \
+                \n\nfarrux-begzod.uz'
+            bot_token = TELEGRAM_BOT_TOKEN  
 
-            # Call the asynchronous Telegram messaging function directly
-            asyncio.run(send_data_to_telegram(serializer.validated_data))
+            url = f'https://api.telegram.org/bot{bot_token}/sendMessage'
+            payload = {
+                'chat_id': chat_id,
+                'text': message_text,
+            }
 
-            return Response(
-                serializer.data,
-                status=status.HTTP_201_CREATED
-            )
+            response = requests.post(url, data=payload)
+
+            if response.status_code == 200:
+                return Response(
+                    serializer.data,
+                    status=status.HTTP_201_CREATED
+                )
+            else:
+                return Response(
+                    {"error": "Failed to send Telegram message"},
+                    status=status.HTTP_500_INTERNAL_SERVER_ERROR
+                )
+
         return Response(
             serializer.errors,
             status=status.HTTP_400_BAD_REQUEST
