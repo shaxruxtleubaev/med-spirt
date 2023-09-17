@@ -31,7 +31,7 @@ def client_list(request):
             message_text = f'Новый клиент: \
                 \n\nКлиент: {serializer.instance.fullname} \
                 \nТелефон номер: {serializer.instance.phone_number} \
-                \n\nfarrux-begzod.uz'
+                \n\nbegzod-farrux.uz'
             bot_token = TELEGRAM_BOT_TOKEN  
 
             url = f'https://api.telegram.org/bot{bot_token}/sendMessage'
